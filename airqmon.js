@@ -1,3 +1,9 @@
+const zigbeeHerdsmanConverters = require('zigbee-herdsman-converters');
+ 
+const exposes = zigbeeHerdsmanConverters.exposes;
+const ea = exposes.access;
+const e = exposes.presets;
+ 
 const fz = {
         airqmon_co2: { 
       cluster: 'genAnalogInput',
@@ -19,37 +25,16 @@ const fz = {
         },
     },       
 };
-
-const sensor_co2 = {
-    type: 'sensor',
-    object_id: 'co2',
-    discovery_payload: {
-        unit_of_measurement: 'ppm',
-        icon: 'mdi:molecule-co2',
-        value_template: '{{ value_json.co2 }}',
-    },
-};
-
-const sensor_temperature = {
-        type: 'sensor',
-        object_id: 'temperature',
-        discovery_payload: {
-            unit_of_measurement: '°C',
-            device_class: 'temperature',
-            value_template: '{{ value_json.temperature }}',
-        },
-};
-
+ 
 const device = {
-        zigbeeModel: ['AirQMon'],
+    zigbeeModel: ['AirQMon'],
     model: 'AirQMon',
-    vendor: 'DIY',
+    vendor: 'SLS',
     description: 'CO₂ sensor',
     supports: 'CO₂ and temperature',
     fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature],
     toZigbee: [],
-    homeassistant: [sensor_co2, sensor_temperature],
-    exposes: [],
+    exposes: [e.co2(), e.temperature(),],
 };
-
+ 
 module.exports = device;
