@@ -39,8 +39,8 @@ const definition = {
     vendor: 'SLS',
     description: 'CO₂ sensor',
     extend: [],
-    fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature], // We will add this later
-    toZigbee: [], // Should be empty, unless device can be controlled (e.g. lights, switches).
+    fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature],
+    toZigbee: [],
     exposes: [e.co2(), e.temperature()],
 };
 
