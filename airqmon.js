@@ -1,9 +1,16 @@
-const zigbeeHerdsmanConverters = require('zigbee-herdsman-converters');
- 
-const exposes = zigbeeHerdsmanConverters.exposes;
-const ea = exposes.access;
+const {} = require('zigbee-herdsman-converters/lib/modernExtend');
+const tz = require('zigbee-herdsman-converters/converters/toZigbee');
+const exposes = require('zigbee-herdsman-converters/lib/exposes');
+const reporting = require('zigbee-herdsman-converters/lib/reporting');
+const extend = require('zigbee-herdsman-converters/lib/extend');
+const ota = require('zigbee-herdsman-converters/lib/ota');
+const tuya = require('zigbee-herdsman-converters/lib/tuya');
+const {} = require('zigbee-herdsman-converters/lib/tuya');
+const utils = require('zigbee-herdsman-converters/lib/utils');
+const globalStore = require('zigbee-herdsman-converters/lib/store');
 const e = exposes.presets;
- 
+const ea = exposes.access;
+
 const fz = {
         airqmon_co2: { 
       cluster: 'genAnalogInput',
@@ -25,16 +32,16 @@ const fz = {
         },
     },       
 };
- 
-const device = {
+
+const definition = {
     zigbeeModel: ['AirQMon'],
     model: 'AirQMon',
     vendor: 'SLS',
     description: 'CO₂ sensor',
-    supports: 'CO₂ and temperature',
-    fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature],
-    toZigbee: [],
-    exposes: [e.co2(), e.temperature(),],
+    extend: [],
+    fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature], // We will add this later
+    toZigbee: [], // Should be empty, unless device can be controlled (e.g. lights, switches).
+    exposes: [e.co2(), e.temperature()],
 };
- 
-module.exports = device;
+
+module.exports = definition;
