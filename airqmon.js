@@ -23,15 +23,15 @@ const fz = {
         },
     },
     
-//     airqmon_temperature: { 
-//       cluster: 'genAnalogInput',
-//       type: ['attributeReport', 'readResponse'],
-//       convert: (model, msg, publish, options) => {
-//             if (msg.endpoint.ID == 1) {
-//                 return {temperature: msg.data['presentValue']};
-//             }
-//         },
-//     },       
+     airqmon_temperature: { 
+       cluster: 'genAnalogInput',
+       type: ['attributeReport', 'readResponse'],
+       convert: (model, msg, publish, options) => {
+             if (msg.endpoint.ID == 1) {
+                 return {temperature: msg.data['presentValue']};
+             }
+         },
+     },       
 };
 
 const definition = {
@@ -40,9 +40,9 @@ const definition = {
     vendor: 'SLS',
     description: 'CO₂ sensor',
     extend: [],
-    fromZigbee: [fz.airqmon_co2],// We will add this later
+    fromZigbee: [fz.airqmon_co2, fz.airqmon_temperature],// We will add this later
     toZigbee: [], // Should be empty, unless device can be controlled (e.g. lights, switches).
-    exposes: [e.co2()],
+    exposes: [e.co2(), e.temperature(),],
 };
 
 module.exports = definition;
